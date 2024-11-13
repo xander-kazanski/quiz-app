@@ -32,12 +32,12 @@ function Quiz(props) {
     
     return (
         <div id="quiz">
-            <img id="under" className="top-right" src="../images/top-right.png" />
+            <img id="under" className="top-right" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/top-right.png?raw=true" />
             {Questions}
             <span>
               <button onClick={() => props.next("last")} id="check-answers" type='button'>Check answers</button>
             </span>
-            <img id="under" className="bottom-left" src="../images/bottom-left.png" />
+            <img id="under" className="bottom-left" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/bottom-left.png?raw=true" />
         </div>
     )
 }
