@@ -3,27 +3,32 @@ import HomeScreen from './components/HomeScreen.jsx'
 import Quiz from './components/Quiz.jsx'
 import Check from './components/Check.jsx';
 import "./index.css"
+import { quizData } from './data.js';
 
 
 function App() {
     const [step, setStep] = useState('home');
-    const [gameData, setGameData] = useState({});
+    const [gameData, setGameData] = useState(quizData);
     const [answers, setAnswers] = useState([])
+    
 
+
+    function currentStep() {
+        switch (step) {
+            case 'home':
+                return <HomeScreen next={() => setStep('quiz')} gameData={gameData} setGameData={setGameData} />
+            case 'quiz':
+                return <Quiz answers={answers} gameData={gameData} setAnswers={setAnswers} next={() => setStep('check')} />
+            case 'check':
+                return <Check answers={answers} gameData={gameData} setAnswers={setAnswers} next={setStep} cleanup={setAnswers} />
+            default:
+                return <HomeScreen next={setStep} gameData={gameData} setGameData={setGameData} />
+        }
+    }
  
     return (
         <main>
-            {step === 'home' ? 
-              <HomeScreen next={setStep} gameData={gameData} setGameData={setGameData} /> : 
-                step === 'quiz' ? <Quiz answers={answers} 
-                  gameData={gameData} setAnswers={setAnswers} next={setStep} /> :
-                  <Check answers={answers} 
-                  gameData={gameData} setAnswers={setAnswers} next={setStep} 
-                  cleanup={() => {
-                    setGameData({})
-                    setAnswers([])
-                  }}
-                  /> }
+          {currentStep()}
         </main>
     )
 }

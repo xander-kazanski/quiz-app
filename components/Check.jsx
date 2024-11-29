@@ -1,61 +1,90 @@
 import React, { useEffect, useState } from 'react';
 import "./check.css"
 
-function Check(props) {
 
-  function Question(props) {
-    // todo create function to randoomize where the correct answer is
-    const Answers = props.incorrect_answers.concat(props.correct_answer).map((answer, idx) => {
-      const isRight = props.correct_answer === props.selectedAnswer;
-      return <button key={idx} 
-        className="btn"
-        id={(function () {
-          if (props.selectedAnswer === answer) {
-            if (isRight) {
-              return 'selected-correct';
-            } else {
-              return 'selected-wrong';
-            }
-          } else {
-            if (props.selectedAnswer === answer) {
-              return 'selected-wrong'
-            } else if (props.correct_answer == answer) {
-              return 'selected-correct'
-            }
-            return 'ghost';
-          }
-        })()} type="button">{answer}</button>
-    })
+function QuestionAnswer({idx, answer, idName}) {
+  return (
+    <button key={idx}
+      className="btn"
+      id={idName} type="button">{answer}</button>
+  )
+}
+
+const Question = React.memo(({ incorrectAnswers, grade, isFirst, question }) => {
+  const {isCorrect, selectedAnswer, correct_answer} = grade
+  // todo create function to randoomize where the correct answer is
+  const Answers = incorrectAnswers.concat(correct_answer).map((answer, idx) => {
+    const idName = () => {
+      if (selectedAnswer === answer) {
+        if (isCorrect) {
+          localStorage.setItem('score', Number(localStorage.getItem('score')) + 1)
+          return 'selected-correct';
+        } else {
+          return 'selected-wrong';
+        }
+      } else {
+        if (selectedAnswer === answer) {
+          return 'selected-wrong'
+        } else if (correct_answer == answer) {
+          // localStorage.setItem('score', Number(localStorage.getItem('score')) + 1)
+          return 'selected-correct'
+        }
+        return 'ghost';
+      }
+    }
+    return <QuestionAnswer key={idx} idx={idx} answer={answer} idName={idName()} />
+})
+
+  return (
+    <section className={`question ${isFirst ? '' : 'first-question'}`}>
+      <p className="title">{question}</p>
+      <div className="answer">
+        {Answers}
+      </div>
+    </section>
+  )
+})
+
+
+function Check({ answers, gameData, setAnswers, next }) {
+  const Questions = gameData.map((gameQuestion, idx) => {
+    const { correct_answer, question, incorrect_answers } = gameQuestion;
+    const grade = { 
+      isCorrect: answers[question] === correct_answer,
+      correct_answer,
+      selectedAnswer: answers[question],
+    }
     return (
-      <section className={`question ${props.isFirst ? '' : 'first-question'}`}>
-        <p className="title">{props.question}</p>
-        <div className="answer">
-          {Answers}
-        </div>
-      </section>
-    )
-  }
+      <Question
+        grade={grade}
+        key={idx}
+        isFirst={idx === 0}
+        setAnswers={setAnswers}
+        question={question}
+        incorrectAnswers={incorrect_answers}
 
-  const Questions = props.gameData.map((question, idx) => {
-    return <Question selectedAnswer={props.answers[question.question]}
-      key={idx} {...question} isFirst={idx === 0} setAnswers={props.setAnswers} />
+      />
+    )
   })
 
-  function Result(props) {
+  function Result({ cleanup, total }) {
     return <div className="result">
-      <p>You scored {props.score}/{props.questionCount} correct answers</p>
-      <button id="play-again" onClick={() => {props.cleanup(); props.next('home')}} type='button'>Play again</button>
+      <p>You scored {localStorage.getItem('score')}/{total} correct answers</p>
+      <button id="play-again" onClick={cleanup} type='button'>Play again</button>
     </div>
   }
 
-  const rightAnswers = props.gameData.map(question => question.correct_answer)
-  const score = Object.values(props.answers).filter(answer => rightAnswers.includes(answer)).length
+  function cleanup() {
+    setAnswers([]);
+    next('home')
+  }
+
 
   return (
     <div id="quiz">
       <img id="under" className="top-right" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/top-right.png?raw=true" />
       {Questions}
-      <Result score={score} next={props.next} cleanup={props.cleanup} questionCount={props.gameData.length} />
+      <Result cleanup={cleanup} total={gameData.length} />
       <img id="under" className="bottom-left" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/bottom-left.png?raw=true" />
     </div>
   )
