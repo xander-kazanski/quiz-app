@@ -84,7 +84,7 @@ function Check({ answers, gameData, setAnswers, next }) {
     <div id="quiz">
       <img id="under" className="top-right" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/top-right.png?raw=true" />
       {Questions}
-      <Result cleanup={cleanup} total={gameData.length} />
+      {/* <Result cleanup={cleanup} total={gameData.length} /> */}
       <img id="under" className="bottom-left" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/bottom-left.png?raw=true" />
     </div>
   )
