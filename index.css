@@ -36,7 +36,7 @@ p {
 button {
   margin-top: 1.8125em; /* 29px / 16 = 1.8125em */
   font-family: "Inter", serif;
-  min-width: 5.0625em; /* 193px / 16 = 12.0625em */
+  min-width: 7.0625em; /* 193px / 16 = 12.0625em */
   height: 3.25em; /* 52px / 16 = 3.25em */
   background-color: #4D5B9E;
   border: unset;
@@ -45,6 +45,7 @@ button {
   font-weight: 500;
   line-height: 1.21em;
   cursor: pointer;
+
 }
 
 main,body, #root, #quiz {
