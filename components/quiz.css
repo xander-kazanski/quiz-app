@@ -3,7 +3,6 @@
 #quiz {
   z-index: 1;
   padding-top: 2.5em; /* 40px / 16 = 2.5em */
-  min-width: 34.375em; /* 550px / 16 = 34.375em */
   min-height: 34.375em; /* 550px / 16 = 34.375em */
   background-color: #F5F7FB;
   position: relative;
@@ -18,7 +17,7 @@
   font-size: 1rem; /* 16px / 16 = 1rem */
   line-height: 1.16875rem; /* 18.7px / 16 = 1.16875rem */
   margin-left: 4.6875em; /* 75px / 16 = 4.6875em */
-  max-width: 24.9375em; /* 399px / 16 = 24.9375em */
+  width: 100%;
 }
 
 .question .title {
@@ -33,12 +32,14 @@
 }
 
 .answer {
-  min-width: 24.9375em; /* 399px / 16 = 24.9375em */
+  width: 100%;
   margin: 0.81875em 0 0 0; /* 13.1px / 16 = 0.81875em */
   display: flex;
+  justify-content: flex-start;
   gap: 0.80875em; /* 12.94px / 16 = 0.80875em */
   border-bottom: 0.048125em solid #DBDEF0; /* 0.77px / 16 = 0.048125em */
   padding-bottom: 0.90875em; /* 14.54px / 16 = 0.90875em */
+  flex-wrap: wrap;
 }
 
 .btn {
