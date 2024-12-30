@@ -69,7 +69,6 @@ function Check({ answers, gameData, setAnswers, next }) {
 
   function Result({ cleanup, total }) {
     return <div className="result">
-      <p>You scored {localStorage.getItem('score')}/{total} correct answers</p>
       <button id="play-again" onClick={cleanup} type='button'>Play again</button>
     </div>
   }
@@ -84,7 +83,7 @@ function Check({ answers, gameData, setAnswers, next }) {
     <div id="quiz">
       <img id="under" className="top-right" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/top-right.png?raw=true" />
       {Questions}
-      {/* <Result cleanup={cleanup} total={gameData.length} /> */}
+      <Result cleanup={cleanup} total={gameData.length} />
       <img id="under" className="bottom-left" src="https://github.com/alexander-kazanski/quiz-app/blob/main/images/bottom-left.png?raw=true" />
     </div>
   )
