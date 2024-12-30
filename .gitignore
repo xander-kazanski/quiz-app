@@ -2126,3 +2126,6 @@ node_modules/.vite/deps/react-dom.js
 node_modules/.vite/deps/react-dom.js.map
 node_modules/.vite/deps/react.js
 node_modules/.vite/deps/react.js.map
+
+# Local Netlify folder
+.netlify

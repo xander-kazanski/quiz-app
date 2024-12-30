@@ -45,9 +45,13 @@ button {
   cursor: pointer;
 }
 
+main,body, #root, #quiz {
+  width: 100%;
+}
+
 #home {
   padding-top: 13.625em; /* 218px / 16 = 13.625em */
-  min-width: 34.375em; /* 550px / 16 = 34.375em */
+  width: 100%;
   min-height: 34.375em; /* 550px / 16 = 34.375em */
   background-color: #F5F7FB;
   text-align: center;
