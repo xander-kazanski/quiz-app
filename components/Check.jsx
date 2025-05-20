@@ -97,12 +97,33 @@ function Check({ answers, gameData, setAnswers, next }) {
       />
     )
   });
-
   function Result({ cleanup, total }) {
-    return <div className="result">
-      <h2>Your Score: {score} out of {total}</h2>
-      <button id="play-again" onClick={cleanup} type='button'>Play again</button>
-    </div>
+    const getEmoji = (score, total) => {
+      const percentage = (score / total) * 100;
+      if (percentage === 100) return "🏆";
+      if (percentage >= 80) return "🌟";
+      if (percentage >= 60) return "😊";
+      if (percentage >= 40) return "🌱";
+      return "💪";
+    };
+
+    const getMessage = (score, total) => {
+      const percentage = (score / total) * 100;
+      if (percentage === 100) return "Perfect Score! Absolutely Brilliant!";
+      if (percentage >= 80) return "Outstanding Performance!";
+      if (percentage >= 60) return "Well Done!";
+      if (percentage >= 40) return "Good Effort!";
+      return "Keep Learning & Growing!";
+    };
+
+    return (
+      <div className="result">
+        <div className="result-emoji">{getEmoji(score, total)}</div>
+        <h2>{getMessage(score, total)}</h2>
+        <h2>You got <span className="score-highlight">{score}</span> out of <span className="score-highlight">{total}</span></h2>
+        <button id="play-again" onClick={cleanup} type='button'>Play Again! 🎯</button>
+      </div>
+    );
   }
 
   function cleanup() {
