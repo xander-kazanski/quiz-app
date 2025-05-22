@@ -2,15 +2,21 @@
 
 #quiz {
   z-index: 1;
-  padding: 2.5em;
-  min-height: 34.375em; /* 550px / 16 = 34.375em */
+  padding: clamp(1rem, 5vw, 2.5em);
+  min-height: 34.375em;
   background-color: #F5F7FB;
   position: relative;
   margin: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 #under {
   z-index: -1;
+  max-width: 100%;
+  height: auto;
+  position: absolute;
 }
 
 .question {
@@ -72,4 +78,70 @@
   font-size: 0.64rem; /* 10.24px / 16 = 0.64rem */
   line-height: 0.774375rem; /* 12.39px / 16 = 0.774375rem */
   margin: 1.5625em auto; /* 25px / 16 = 1.5625em */
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  #quiz {
+    padding: 1rem;
+  }
+
+  .question {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .question .title {
+    margin-bottom: 1rem;
+  }
+
+  .answer {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .answer button {
+    width: 100%;
+    min-height: 2.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    margin: 0.2rem 0;
+  }
+
+  #check-answers {
+    width: 100%;
+    margin: 1rem auto;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  #under {
+    width: 30%;
+    height: auto;
+  }
+}
+
+/* Better touch targets for mobile */
+@media (hover: none) {
+  .answer button {
+    padding: 12px;
+    min-height: 44px; /* iOS minimum touch target size */
+  }
+
+  .btn:active {
+    background-color: #D6DBF5;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 320px) {
+  .question {
+    font-size: 0.85rem;
+  }
+
+  .answer button {
+    font-size: 0.8rem;
+  }
 }

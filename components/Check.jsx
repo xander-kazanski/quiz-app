@@ -34,9 +34,16 @@ function shuffleArray(array) {
 
 function QuestionAnswer({idx, answer, idName}) {
   return (
-    <button key={idx}
+    <button 
+      key={idx}
       className="btn"
-      id={idName} type="button">{answer}</button>
+      id={idName} 
+      type="button"
+      aria-label={`Answer option: ${answer}`}
+      role="option"
+    >
+      {answer}
+    </button>
   )
 }
 
